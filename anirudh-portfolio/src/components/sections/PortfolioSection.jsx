@@ -83,6 +83,7 @@ export default function PortfolioSection() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [currentSlide, setCurrentSlide] = useState(0);
   const [selectedProject, setSelectedProject] = useState(null);
+  const [videoAspect, setVideoAspect] = useState(9 / 16);
   const [containerWidth, setContainerWidth] = useState(0);
   const [cardsPerView, setCardsPerView] = useState(3);
   const containerRef = useRef(null);
@@ -119,6 +120,10 @@ export default function PortfolioSection() {
     setCurrentSlide(clamped);
     controls.start({ x: -clamped * slideWidth, transition: { duration: 0.4, ease } });
   }, [activeCategory, cardsPerView, containerWidth]);
+
+  useEffect(() => {
+    if (selectedProject) setVideoAspect(9 / 16);
+  }, [selectedProject]);
 
   const goToSlide = (slide) => {
     const clamped = Math.max(0, Math.min(slide, totalSlides - 1));
@@ -228,7 +233,8 @@ export default function PortfolioSection() {
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: 40, opacity: 0 }}
               transition={{ duration: 0.4, ease }}
-              className="relative w-full max-w-[900px]"
+              className="relative"
+              style={{ width: "fit-content", maxWidth: "90vw" }}
               onClick={e => e.stopPropagation()}
             >
               <button
@@ -239,13 +245,26 @@ export default function PortfolioSection() {
               >
                 <X size={20} />
               </button>
-              <div className="relative w-full overflow-hidden bg-black" style={{ aspectRatio: "16 / 9" }}>
+              <div
+                className="relative overflow-hidden bg-black"
+                style={{
+                  aspectRatio: videoAspect,
+                  height: `min(90vh, calc(90vw / ${videoAspect}))`,
+                  maxWidth: "90vw",
+                }}
+              >
                 <video
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                   src={selectedProject.videoSrc}
                   autoPlay
                   controls
                   playsInline
+                  onLoadedMetadata={(e) => {
+                    const v = e.currentTarget;
+                    if (v.videoWidth && v.videoHeight) {
+                      setVideoAspect(v.videoWidth / v.videoHeight);
+                    }
+                  }}
                 />
               </div>
             </motion.div>
