@@ -29,7 +29,6 @@ const testimonials = [
 export default function TestimonialsSection() {
   const [active, setActive] = useState(0);
   const containerRef = useRef(null);
-  const [dragStart, setDragStart] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {

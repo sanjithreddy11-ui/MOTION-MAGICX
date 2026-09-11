@@ -7,34 +7,52 @@ const ease = [0.16, 1, 0.3, 1];
 const categories = ["All", "Car Deliveries", "Events & Weddings", "Devotional Events"];
 
 const allProjects = [
-  { title: "Reel ", category: "All", videoSrc: "/videos/all1.mp4" },
-  { title: "Reel ", category: "All", videoSrc: "/videos/all2.mp4" },
-  { title: "Reel ", category: "All", videoSrc: "/videos/all3.mp4" },
+  { title: "Reel 1", category: "All", videoSrc: "/videos/all1.mp4" },
+  { title: "Reel 2", category: "All", videoSrc: "/videos/all2.mp4" },
+  { title: "Reel 3", category: "All", videoSrc: "/videos/all3.mp4" },
 ];
 
 const categoryProjects = [
-  { title: "Car Delivery ", category: "Car Deliveries", videoSrc: "/videos/car1.mp4" },
-  { title: "Car Delivery ", category: "Car Deliveries", videoSrc: "/videos/car2.mp4" },
-  { title: "Car Delivery ", category: "Car Deliveries", videoSrc: "/videos/car3.mp4" },
-  { title: "Wedding Film ", category: "Events & Weddings", videoSrc: "/videos/wedding1.mp4" },
-  { title: "Wedding Film ", category: "Events & Weddings", videoSrc: "/videos/wedding2.mp4" },
-  { title: "Wedding Film ", category: "Events & Weddings", videoSrc: "/videos/wedding3.mp4" },
-  { title: "Devotional Event ", category: "Devotional Events", videoSrc: "/videos/devotional1.mp4" },
-  { title: "Devotional Event ", category: "Devotional Events", videoSrc: "/videos/devotional2.mp4" },
-  { title: "Devotional Event ", category: "Devotional Events", videoSrc: "/videos/devotional3.mp4" },
+  { title: "Car Delivery 1", category: "Car Deliveries", videoSrc: "/videos/car1.mp4" },
+  { title: "Car Delivery 2", category: "Car Deliveries", videoSrc: "/videos/car2.mp4" },
+  { title: "Car Delivery 3", category: "Car Deliveries", videoSrc: "/videos/car3.mp4" },
+  { title: "Wedding Film 1", category: "Events & Weddings", videoSrc: "/videos/wedding1.mp4" },
+  { title: "Wedding Film 2", category: "Events & Weddings", videoSrc: "/videos/wedding2.mp4" },
+  { title: "Wedding Film 3", category: "Events & Weddings", videoSrc: "/videos/wedding3.mp4" },
+  { title: "Devotional Event 1", category: "Devotional Events", videoSrc: "/videos/devotional1.mp4" },
+  { title: "Devotional Event 2", category: "Devotional Events", videoSrc: "/videos/devotional2.mp4" },
+  { title: "Devotional Event 3", category: "Devotional Events", videoSrc: "/videos/devotional3.mp4" },
 ];
 
 function VideoCard({ project, cardWidth, onClick }) {
   const videoRef = useRef(null);
+  const cardRef = useRef(null);
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.play().catch(() => {});
-    }
+    const video = videoRef.current;
+    const card = cardRef.current;
+    if (!video || !card) return;
+
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return; // Leave paused on first frame for reduced-motion users
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.4 }
+    );
+    observer.observe(card);
+    return () => observer.disconnect();
   }, []);
 
   return (
     <div
+      ref={cardRef}
       className="flex-shrink-0 group cursor-pointer relative overflow-hidden transition-transform duration-300 hover:scale-[1.02]"
       style={{ width: `${cardWidth}px`, aspectRatio: "9 / 11", borderRadius: "16px" }}
       onClick={onClick}
@@ -42,10 +60,11 @@ function VideoCard({ project, cardWidth, onClick }) {
       <video
         ref={videoRef}
         src={project.videoSrc}
-        autoPlay
         loop
         muted
         playsInline
+        preload="metadata"
+        aria-label={`${project.title} — ${project.category} video by Motion Magicx`}
         className="absolute inset-0 w-full h-full object-cover"
       />
       <div
@@ -141,6 +160,7 @@ export default function PortfolioSection() {
         <button
           onClick={() => goToSlide(currentSlide - 1)}
           disabled={currentSlide === 0}
+          aria-label="Previous videos"
           className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-[52px] h-[52px] flex items-center justify-center bg-zinc-900/80 border border-zinc-700 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
           style={{ borderRadius: "50%" }}
         >
@@ -149,6 +169,7 @@ export default function PortfolioSection() {
         <button
           onClick={() => goToSlide(currentSlide + 1)}
           disabled={currentSlide >= totalSlides - 1}
+          aria-label="Next videos"
           className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-[52px] h-[52px] flex items-center justify-center bg-zinc-900/80 border border-zinc-700 text-white hover:bg-white hover:text-black hover:border-white transition-all duration-200 disabled:opacity-30 disabled:cursor-not-allowed"
           style={{ borderRadius: "50%" }}
         >
@@ -212,6 +233,7 @@ export default function PortfolioSection() {
             >
               <button
                 onClick={() => setSelectedProject(null)}
+                aria-label="Close video preview"
                 className="absolute -top-14 right-0 w-10 h-10 flex items-center justify-center bg-zinc-800 text-white hover:bg-white hover:text-black transition-colors"
                 style={{ borderRadius: "50%" }}
               >

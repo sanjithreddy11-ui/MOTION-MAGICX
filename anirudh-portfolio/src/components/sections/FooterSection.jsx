@@ -32,7 +32,8 @@ function SMPTEClock() {
 }
 
 export default function FooterSection() {
-  const scrollTo = (href) => {
+  const scrollTo = (e, href) => {
+    e.preventDefault();
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
@@ -71,13 +72,14 @@ export default function FooterSection() {
             <p className="font-mono text-xs uppercase tracking-widest text-zinc-500 mb-4">Navigation</p>
             <div className="space-y-3">
               {navLinks.map((link) => (
-                <button
+                <a
                   key={link.href}
-                  onClick={() => scrollTo(link.href)}
+                  href={link.href}
+                  onClick={(e) => scrollTo(e, link.href)}
                   className="block text-zinc-400 font-light text-sm hover:text-white transition-colors duration-300"
                 >
                   {link.label}
-                </button>
+                </a>
               ))}
             </div>
           </div>

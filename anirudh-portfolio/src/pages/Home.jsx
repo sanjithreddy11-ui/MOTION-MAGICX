@@ -8,7 +8,6 @@ import ServicesSection from '@/components/sections/ServicesSection';
 import WhySection from '@/components/sections/WhySection';
 import Testimonials from '@/components/sections/TestimonialsSection';
 import ContactSection from '@/components/sections/ContactSection';
-import Footer from '@/components/sections/FooterSection'
 import FooterSection from '@/components/sections/FooterSection';
 
 export default function Home() {

@@ -1,0 +1,21 @@
+These files were DELETED from the repo. They are not included in this zip
+(a zip cannot represent a deletion) — remove them manually from your project.
+
+Reason: dead, unrouted `base44` app-builder auth boilerplate. None of these were
+reachable from App.jsx after removing the blocking auth gate, and none of them
+power any real feature on the live public site (no login/register flow exists
+on the visible homepage).
+
+src/api/base44Client.js
+src/components/AuthLayout.jsx
+src/components/GoogleIcon.jsx
+src/components/ProtectedRoute.jsx
+src/components/UserNotRegisteredError.jsx
+src/lib/AuthContext.jsx
+src/lib/app-params.js
+src/lib/query-client.jsx
+src/pages/ForgotPassword.jsx
+src/pages/Login.jsx
+src/pages/Register.jsx
+src/pages/ResetPassword.jsx
+public/vite.svg

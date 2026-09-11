@@ -100,7 +100,10 @@ export default function ContactSection() {
                 transition={{ duration: 0.3 }}
               >
                 <div>
+                  <label htmlFor="contact-name" className="sr-only">Full Name</label>
                   <input
+                    id="contact-name"
+                    name="name"
                     type="text"
                     placeholder="Full Name"
                     value={form.name}
@@ -110,7 +113,10 @@ export default function ContactSection() {
                   />
                 </div>
                 <div>
+                  <label htmlFor="contact-email" className="sr-only">Email Address</label>
                   <input
+                    id="contact-email"
+                    name="email"
                     type="email"
                     placeholder="Email Address"
                     value={form.email}
@@ -120,7 +126,10 @@ export default function ContactSection() {
                   />
                 </div>
                 <div>
+                  <label htmlFor="contact-type" className="sr-only">Project Type</label>
                   <select
+                    id="contact-type"
+                    name="type"
                     value={form.type}
                     onChange={e => updateField('type', e.target.value)}
                     required
@@ -135,7 +144,10 @@ export default function ContactSection() {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="contact-budget" className="sr-only">Budget Range</label>
                   <select
+                    id="contact-budget"
+                    name="budget"
                     value={form.budget}
                     onChange={e => updateField('budget', e.target.value)}
                     required
@@ -149,7 +161,10 @@ export default function ContactSection() {
                   </select>
                 </div>
                 <div>
+                  <label htmlFor="contact-message" className="sr-only">Project Details</label>
                   <textarea
+                    id="contact-message"
+                    name="message"
                     rows={4}
                     placeholder="Tell me about your project..."
                     value={form.message}

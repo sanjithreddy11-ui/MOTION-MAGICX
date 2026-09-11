@@ -23,7 +23,7 @@ export default function AboutSection() {
           </h2>
           <div className="space-y-5 text-zinc-400 font-light leading-relaxed">
             <p>
-              I'm Jagadish, the creator behind Motion Magicx. My work is built around a simple idea: powerful visual storytelling doesn't need a film crew — it needs a good eye, an iPhone, and a lot of intention in the edit.
+              I'm Jagadish, the creator and editor behind Motion Magicx — a Hyderabad-based video content studio. My work is built around a simple idea: powerful visual storytelling doesn't need a film crew — it needs a good eye, an iPhone, and a lot of intention in the edit.
             </p>
             <p>
               Over the years, I've shot and edited content for 100+ satisfied clients across Hyderabad — from personal reels to events and brand stories. Every project gets the same focus: visually engaging, high-quality video that holds attention and leaves an impression.
@@ -57,7 +57,9 @@ export default function AboutSection() {
           <div className="aspect-[3/3] max-h-[600px] border border-zinc-700 overflow-hidden group hover:border-white transition-colors duration-500">
             <img
               src={ABOUT_IMAGE}
-              alt="Jagadish shooting content on iPhone"
+              alt="Jagadish, founder of Motion Magicx, filming with an iPhone in Hyderabad"
+              loading="lazy"
+              decoding="async"
               className="w-full h-full object-cover grayscale brightness-90 group-hover:grayscale-[0.5] group-hover:brightness-100 transition-all duration-700" />
             
           </div>

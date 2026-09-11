@@ -21,7 +21,8 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollTo = (href) => {
+  const scrollTo = (e, href) => {
+    e.preventDefault();
     setMobileOpen(false);
     const el = document.querySelector(href);
     if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -36,12 +37,13 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
-          <a href="#home" className="font-mono font-bold text-white text-sm tracking-wider flex items-center gap-0.5">
-            Jagadish
+          <a href="#home" className="font-mono font-bold text-white text-sm tracking-wider flex items-center gap-0.5" aria-label="Motion Magicx — Home">
+            Motion Magicx
             <motion.span
               animate={{ opacity: [1, 0] }}
               transition={{ duration: 0.8, repeat: Infinity, repeatType: 'reverse' }}
               className="text-white"
+              aria-hidden="true"
             >
               |
             </motion.span>
@@ -50,9 +52,10 @@ export default function Navbar() {
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
-              <button
+              <a
                 key={link.href}
-                onClick={() => scrollTo(link.href)}
+                href={link.href}
+                onClick={(e) => scrollTo(e, link.href)}
                 onMouseEnter={() => setActiveLink(link.href)}
                 onMouseLeave={() => setActiveLink(null)}
                 className="relative text-zinc-400 hover:text-white transition-colors duration-300 text-sm font-light tracking-wide py-1"
@@ -65,7 +68,7 @@ export default function Navbar() {
                     transition={{ type: 'tween', duration: 0.2, ease: [0.25, 0.1, 0.25, 1] }}
                   />
                 )}
-              </button>
+              </a>
             ))}
           </div>
 
@@ -91,16 +94,17 @@ export default function Navbar() {
             className="fixed inset-0 z-40 bg-[#09090b] flex flex-col items-center justify-center gap-8"
           >
             {navLinks.map((link, i) => (
-              <motion.button
+              <motion.a
                 key={link.href}
+                href={link.href}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08, duration: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
-                onClick={() => scrollTo(link.href)}
+                onClick={(e) => scrollTo(e, link.href)}
                 className="text-white text-3xl font-light tracking-wide hover:text-zinc-400 transition-colors"
               >
                 {link.label}
-              </motion.button>
+              </motion.a>
             ))}
           </motion.div>
         )}

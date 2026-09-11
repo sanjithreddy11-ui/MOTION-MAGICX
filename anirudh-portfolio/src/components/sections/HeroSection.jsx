@@ -18,23 +18,23 @@ export default function HeroSection() {
       <div className="relative z-10 flex flex-row items-center justify-between w-full max-w-6xl">
         
         <div className="max-w-2xl">
-          <motion.div
-            initial={{ opacity: 0, x: -10 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6, ease }}
-            className="flex items-center gap-3 mb-6">
-            <div className="w-6 h-px bg-zinc-500" />
-            <p className="font-mono text-xs uppercase tracking-widest text-zinc-500">
+          <h1 className="mb-8">
+            <motion.span
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6, ease }}
+              className="flex items-center gap-3 mb-6 font-mono text-xs font-normal normal-case tracking-widest text-zinc-500 uppercase">
+              <span className="w-6 h-px bg-zinc-500" aria-hidden="true" />
               Visual Storyteller · Motion Magicx
-            </p>
-          </motion.div>
-          <motion.h1
-            initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 0.9, delay: 0.15, ease }}
-            className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-[0.9] mb-8 text-white">
-            Jagadish
-          </motion.h1>
+            </motion.span>
+            <motion.span
+              initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
+              animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+              transition={{ duration: 0.9, delay: 0.15, ease }}
+              className="block text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-black tracking-tight leading-[0.9] text-white">
+              Jagadish
+            </motion.span>
+          </h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
