@@ -1,8 +1,25 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Check, Instagram, Youtube, Linkedin, Mail, MapPin, Clock,Phone} from 'lucide-react';
+import { ArrowRight, Check, Instagram, Youtube, Linkedin, Mail, MapPin, Clock, Phone } from 'lucide-react';
 
 const ease = [0.25, 0.1, 0.25, 1];
+
+const WHATSAPP_NUMBER = '919014421727'; // +91 90144 21727, in international format with no symbols
+
+const PROJECT_TYPE_LABELS = {
+  reels: 'Reels',
+  event: 'Event Videography',
+  wedding: 'Wedding Content',
+  brand: 'Brand Content',
+  other: 'Other',
+};
+
+const BUDGET_LABELS = {
+  under10k: 'Under ₹10k',
+  '10k-50k': '₹10k – ₹50k',
+  '50k+': '₹50k+',
+  discuss: "Let's Discuss",
+};
 
 export default function ContactSection() {
   const [submitted, setSubmitted] = useState(false);
@@ -10,6 +27,20 @@ export default function ContactSection() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    const lines = [
+      `New inquiry from motion-magicx.vercel.app`,
+      ``,
+      `Name: ${form.name}`,
+      `Email: ${form.email}`,
+      `Project Type: ${PROJECT_TYPE_LABELS[form.type] || form.type}`,
+      `Budget: ${BUDGET_LABELS[form.budget] || form.budget}`,
+      ``,
+      `Message: ${form.message}`,
+    ];
+    const text = encodeURIComponent(lines.join('\n'));
+    window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${text}`, '_blank', 'noopener,noreferrer');
+
     setSubmitted(true);
   };
 
@@ -177,9 +208,12 @@ export default function ContactSection() {
                   type="submit"
                   className="w-full bg-white text-black font-bold py-4 text-sm tracking-wide border border-white hover:bg-transparent hover:text-white transition-all duration-300 flex items-center justify-center gap-2 group"
                 >
-                  Send Message
+                  Send via WhatsApp
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform duration-300" />
                 </button>
+                <p className="text-zinc-600 text-xs font-mono text-center">
+                  Opens WhatsApp with your details filled in — just hit send.
+                </p>
               </motion.form>
             ) : (
               <motion.div
@@ -203,9 +237,9 @@ export default function ContactSection() {
                     <Check size={28} className="text-white" />
                   </motion.div>
                 </motion.div>
-                <h3 className="text-white font-bold text-xl mb-2">Message Sent</h3>
-                <p className="text-zinc-400 font-light text-sm text-center">
-                  I'll get back to you within 24 hours. Let's make something great.
+                <h3 className="text-white font-bold text-xl mb-2">Almost There</h3>
+                <p className="text-zinc-400 font-light text-sm text-center max-w-xs">
+                  WhatsApp just opened in a new tab with your details filled in. Hit send there and I'll reply within 24 hours.
                 </p>
               </motion.div>
             )}
