@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import HeroCardComposition from "./HeroCardStack";
 
 const ease = [0.16, 1, 0.3, 1];
 
@@ -15,8 +16,8 @@ export default function HeroSection() {
     <section id="home" className="relative min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-20">
       <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-white opacity-[0.08]" />
       
-      <div className="relative z-10 flex flex-row items-center justify-between w-full max-w-6xl">
-        
+      <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between w-full lg:max-w-[1600px]">
+
         <div className="max-w-2xl">
           <h1 className="mb-8">
             <motion.span
@@ -58,6 +59,8 @@ export default function HeroSection() {
             </a>
           </motion.div>
         </div>
+
+        <HeroCardComposition />
 
       </div>
 
