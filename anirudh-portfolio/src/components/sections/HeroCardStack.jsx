@@ -267,7 +267,7 @@ function MobileCard({ data, i }) {
 
 function MobileCardStack() {
   return (
-    <div className="flex lg:hidden flex-col gap-4 w-full mt-4 mb-2">
+    <div className="hidden flex-col gap-4 w-full mt-4 mb-2">
       {HERO_CARDS.map((card, i) => (
         <MobileCard key={card.id} data={card} i={i} />
       ))}
@@ -276,7 +276,9 @@ function MobileCardStack() {
 }
 
 /** Public entry point — renders the right composition (desktop) and the
- * stacked composition (mobile/tablet); only one is ever visible at a time. */
+ * stacked composition (mobile/tablet); only one is ever visible at a time.
+ * The mobile/tablet composition is intentionally hidden at all breakpoints
+ * (see MobileCardStack) so the Hero cards only ever appear on desktop. */
 export default function HeroCardComposition() {
   return (
     <>
